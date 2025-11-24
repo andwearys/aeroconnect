@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroGrow Controller</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar collapsed" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">🌱</div>
+            <h2 class="sidebar-title">AeroConnect</h2>
+        </div>
+        <div class="nav-list">
+            <div class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h8V3H3v10zm10 8h8v-6h-8v6zm0-8h8V3h-8v10zm-10 8h8v-4H3v4z"/>
+                    </svg>
+                </span>
+                <span class="nav-label">Dashboard</span>
+            </div>
+            <div class="nav-item" data-page="controller">
+                <span class="nav-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14v-4m4 4v-4m-7 4V7a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                    </svg>
+                </span>
+                <span class="nav-label">Controller</span>
+            </div>
+            <div class="nav-item" data-page="reports">
+                <span class="nav-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16v4a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v2"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 2h6v6"/>
+                    </svg>
+                </span>
+                <span class="nav-label">Reports</span>
+            </div>
+            <div class="nav-item" data-page="settings">
+                <span class="nav-icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82V17a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H7a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V7a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                    </svg>
+                </span>
+                <span class="nav-label">Settings</span>
+            </div>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container" id="mainContainer">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div class="header-title">
+                <h1>AeroConnect Controller</h1>
+                <p>Aeroponic Management System</p>
+            </div>
+            <div class="header-right">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span id="connectionStatus">Connected</span>
+                </div>
+                <button class="icon-btn">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard">
+            <div class="content">
+                <!-- Welcome Card -->
+                <div class="welcome-card">
+                    <div>
+                        <h2>Welcome back, Vonn</h2>
+                        <p id="systemStatus">Your Aeroponic system is running optimally. Current crop: Lettuce (Day 18)</p>
+                    </div>
+                    <div class="temp-display">
+                        <div class="temp-value" id="mainTemp">23°C</div>
+                        <div class="temp-status">Perfect Range</div>
+                    </div>
+                </div>
+
+                <!-- Environmental Monitoring -->
+                <h3 class="section-title">Environmental Monitoring</h3>
+                <div class="monitor-grid">
+                    <div class="monitor-card">
+                        <div class="monitor-icon" style="color: #FF6B6B;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="monitor-label">Temperature</div>
+                        <div class="monitor-value" id="tempValue">22.4°C</div>
+                        <div class="monitor-status optimal">OPTIMAL</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="tempProgress" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-icon" style="color: #4ECDC4;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                            </svg>
+                        </div>
+                        <div class="monitor-label">Humidity</div>
+                        <div class="monitor-value" id="humidityValue">67%</div>
+                        <div class="monitor-status good">GOOD</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="humidityProgress" style="width: 67%"></div>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-icon" style="color: #FFD93D;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <div class="monitor-label">EC (mS/cm)</div>
+                        <div class="monitor-value" id="ecValue">1.8</div>
+                        <div class="monitor-status monitor">MONITOR</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="ecProgress" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-icon" style="color: #C6F329;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="monitor-label">pH Level</div>
+                        <div class="monitor-value" id="phValue">6.2</div>
+                        <div class="monitor-status perfect">PERFECT</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="phProgress" style="width: 82%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tank Levels -->
+                <h3 class="section-title">Tank Levels</h3>
+                <div class="tank-grid">
+                    <div class="tank-card">
+                        <div class="tank-header">
+                            <div class="tank-icon water">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                </svg>
+                            </div>
+                            <div class="tank-status low">LOW</div>
+                        </div>
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#303A3F" stroke-width="20"/>
+                                <circle id="waterGauge" cx="100" cy="100" r="80" fill="none" stroke="#4FC3F7" stroke-width="20" 
+                                        stroke-dasharray="502.65" stroke-dashoffset="376.99" 
+                                        transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                                <text x="100" y="100" text-anchor="middle" dy=".3em" class="gauge-text">25%</text>
+                            </svg>
+                        </div>
+                        <div class="tank-name">Water Tank</div>
+                    </div>
+
+                    <div class="tank-card">
+                        <div class="tank-header">
+                            <div class="tank-icon nutrient">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                </svg>
+                            </div>
+                            <div class="tank-status good">GOOD</div>
+                        </div>
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#303A3F" stroke-width="20"/>
+                                <circle id="nutrientGauge" cx="100" cy="100" r="80" fill="none" stroke="#4AE88C" stroke-width="20" 
+                                        stroke-dasharray="502.65" stroke-dashoffset="110.58" 
+                                        transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                                <text x="100" y="100" text-anchor="middle" dy=".3em" class="gauge-text">78%</text>
+                            </svg>
+                        </div>
+                        <div class="tank-name">Nutrient Tank</div>
+                    </div>
+
+                    <div class="tank-card">
+                        <div class="tank-header">
+                            <div class="tank-icon mix">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                </svg>
+                            </div>
+                            <div class="tank-status optimal">OPTIMAL</div>
+                        </div>
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#303A3F" stroke-width="20"/>
+                                <circle id="mixGauge" cx="100" cy="100" r="80" fill="none" stroke="#B388FF" stroke-width="20" 
+                                        stroke-dasharray="502.65" stroke-dashoffset="40.21" 
+                                        transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                                <text x="100" y="100" text-anchor="middle" dy=".3em" class="gauge-text">92%</text>
+                            </svg>
+                        </div>
+                        <div class="tank-name">Mix Solution</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controller Page -->
+        <div class="page" id="controller">
+            <div class="content">
+                <h3 class="section-title">System Control</h3>
+                
+                <div class="control-grid">
+                    <div class="control-card large">
+                        <div class="control-header">
+                            <h4>Misting System</h4>
+                            <div class="status-badge active">
+                                <span class="status-dot"></span>
+                                <span>ACTIVE</span>
+                            </div>
+                        </div>
+                        <div class="misting-info">
+                            <div class="info-row">
+                                <span>Current Status</span>
+                                <strong id="mistStatus">ON</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Last Cycle</span>
+                                <strong id="lastCycle">45s</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Next Cycle In</span>
+                                <strong id="nextCycle">12:45</strong>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="mistProgress" style="width: 0%"></div>
+                        </div>
+                        <button class="btn-primary btn-stop" id="stopMistBtn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="18" height="18">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
+                            </svg>
+                            Stop Misting
+                        </button>
+                        <button class="icon-btn settings-btn">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="control-card">
+                        <h4>Manual Controls</h4>
+                        <div class="slider-control">
+                            <label>Nutrient Dosing (PPM)</label>
+                            <input type="range" class="slider" id="nutrientSlider" min="0" max="2000" value="950" step="50">
+                            <div class="slider-value" id="nutrientValue">950</div>
+                        </div>
+                        <div class="button-group">
+                        
+                            <button class="btn-primary" id="doseNowBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="18" height="18">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Dose Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">System Alerts</h3>
+                <div class="alerts-container">
+                    <div class="alert alert-error">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        <div class="alert-content">
+                            <strong>Low Water Supply</strong>
+                            <p>Water tank level is at 25%. Please refill to continue operations.</p>
+                        </div>
+                    
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="alert-content">
+                            <strong>pH Level Notice</strong>
+                            <p>Current pH is 6.2 – within acceptable range (6.0-6.5) for lettuce growth.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="alert-content">
+                            <strong>System Health Check</strong>
+                            <p>All pumps and sensors are functioning normally. Last check: 2 minutes ago.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="page" id="settings">
+            <div class="content">
+                <h3 class="section-title">System Settings</h3>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h4>Profile Management</h4>
+                        <div class="profile-info">
+                            <div class="profile-avatar">JS</div>
+                            <div>
+                                <strong>Vonn Daniell</strong>
+                                <p>Aeroponic Specialist</p>
+                                <p class="email">vonn.daniell@aeroconnect.com</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Default Crop</label>
+                            <select class="input-field">
+                                <option>Lettuce</option>
+                                <option>Tomato</option>
+                                <option>Herbs</option>
+                                <option>Strawberry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Temperature Unit</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="temp" value="celsius" checked>
+                                    <span>Celsius (°C)</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="temp" value="fahrenheit">
+                                    <span>Fahrenheit (°F)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-secondary">Edit Profile</button>
+                            <button class="btn-primary">Add User</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h4>System Preferences</h4>
+                        <div class="toggle-item">
+                            <div>
+                                <strong>Push Notifications</strong>
+                                <p>Receive alerts on your mobile device</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div>
+                                <strong>Auto Nutrient Dosing</strong>
+                                <p>Automatically adjust nutrients based on growth phase</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div>
+                                <strong>Data Logging</strong>
+                                <p>Record environmental data for analysis</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">System Maintenance & Support</h3>
+                <div class="settings-grid">
+                    
+
+                    <div class="settings-card">
+                        <h4>Maintenance Schedule</h4>
+                        <div class="maintenance-item">
+                            <span class="status-dot green"></span>
+                            <div>
+                                <strong>Sensor Calibration</strong>
+                                <p>Last: Oct 20 – Next: Nov 20</p>
+                            </div>
+                        </div>
+                        <div class="maintenance-item">
+                            <span class="status-dot yellow"></span>
+                            <div>
+                                <strong>Filter Replacement</strong>
+                                <p>Due: Nov 5 (3 days)</p>
+                            </div>
+                        </div>
+                        <div class="maintenance-item">
+                            <span class="status-dot red"></span>
+                            <div>
+                                <strong>Pump Maintenance</strong>
+                                <p>Overdue: Oct 30</p>
+                            </div>
+                        </div>
+                        <button class="btn-secondary full-width">Schedule Maintenance</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div class="page" id="reports">
+            <div class="content">
+                <h3 class="section-title">Reports</h3>
+                <div class="report-card">
+                    <h4>Recent Activity</h4>
+                    <ul class="report-list">
+                        <li>Misting cycle completed at 12:45</li>
+                        <li>Nutrient dosing (950 PPM) performed</li>
+                        <li>pH adjusted to 6.2</li>
+                        <li>Water tank refilled</li>
+                    </ul>
+                </div>
+                <div class="report-card">
+                    <h4>System Logs</h4>
+                    <ul class="report-list">
+                        <li>All sensors normal</li>
+                        <li>No error conditions</li>
+                        <li>Last maintenance: Oct 20</li>
+                        <li>Next calibration: Nov 20</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/esp32.js"></script>
+</body>
+</html>
